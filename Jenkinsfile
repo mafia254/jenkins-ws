@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "mafia25/node-api"
+    registry = "mafia25/ws-api"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
@@ -14,8 +14,8 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git branch: 'master',
-        credentialsId: '43bc797b-fda4-458f-bf59-54162e116859',
-        url: 'http://192.168.55.202:3000/arkha/news-api.git'
+        credentialsId: '',
+        url: 'https://github.com/cicd-staff/node-api.git'
       }
     }
         
@@ -27,7 +27,7 @@ pipeline {
      
     stage('Test') {
       steps {
-         sh 'npm test'
+         sh 'npm run test'
       }
     } 
     stage('Building image') {
@@ -37,6 +37,11 @@ pipeline {
         }
       }
     }
+    stage('Deploy') {
+      steps{
+        sh "docker-compose -f docker-compose.yml up -d --force-recreate"
+        }
+	  }
     stage('Push Image to Registry') {
       steps{
          script {
@@ -46,10 +51,5 @@ pipeline {
         }
       }
     }
-    stage('Remove Unused docker image') {
-      steps{
-        sh "docker rmi $registry:$BUILD_NUMBER"
-      }
-    }	
   }
 }
