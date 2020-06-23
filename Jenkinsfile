@@ -39,7 +39,7 @@ pipeline {
     }
     stage('Deploy') {
       steps{
-        sh "docker-compose -f docker-compose.yml up -d --force-recreate"
+        sh "docker-compose -f docker-compose.yaml up -d --force-recreate"
         }
 	  }
     stage('Push Image to Registry') {
