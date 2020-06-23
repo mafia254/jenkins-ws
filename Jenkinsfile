@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    registry = "mafia25/ws-api"
+    registry = "mafia25/workshop-api"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
