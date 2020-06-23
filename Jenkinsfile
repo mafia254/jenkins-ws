@@ -14,7 +14,7 @@ pipeline {
     stage('Cloning Git') {
       steps {
         git branch: 'master',
-        credentialsId: '',
+        credentialsId: 'github-arkha',
         url: 'https://github.com/cicd-staff/node-api.git'
       }
     }
